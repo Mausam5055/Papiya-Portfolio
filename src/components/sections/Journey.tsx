@@ -20,7 +20,7 @@ const journeyData: JourneyType[] = [
   {
     id: 3,
     year: "🚩01/07/2023",
-    title: " Nature’s Touch for Radiant Skin",
+    title: " Nature's Touch for Radiant Skin",
     description: "developed this herbal mask sheet to combine natural ingredients with modern skincare for healthy, radiant skin."
   },
   {
@@ -57,44 +57,45 @@ export const Journey = () => {
       ref={ref}
       className={`py-20 ${theme === 'dark' ? 'bg-blue-900 text-white' : 'bg-yellow-50 text-gray-900'}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-4">My Journey</h2>
           <p className="text-lg opacity-90">The path that led me here</p>
-
-        
-
         </motion.div>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-300" />
+          <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gray-300" />
 
           {journeyData.map((item, index) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative flex ${index % 2 === 0 ? 'justify-end' : ''} mb-8`}
+              className="relative flex flex-col md:flex-row mb-12"
             >
-              <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'pl-8'}`}>
+              {/* Timeline dot */}
+              <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 mt-6" />
+
+              <div className="ml-12 md:ml-0 md:w-1/2 md:pr-8">
                 <div className={`p-6 rounded-lg shadow-lg ${
                   theme === 'dark' ? 'bg-blue-800' : 'bg-white'
-                }`}>
-                  <span className="text-sm font-bold opacity-75">{item.year}</span>
+                } ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8 md:translate-x-[100%]'}`}>
+                  <div className="flex items-center mb-2">
+                    <span className="text-sm font-bold opacity-75 inline-block px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-700">
+                      {item.year}
+                    </span>
+                  </div>
                   <h3 className="text-xl font-bold mt-2 mb-3">{item.title}</h3>
-                  <p className="text-sm opacity-90">{item.description}</p>
+                  <p className="text-sm opacity-90 leading-relaxed">{item.description}</p>
                 </div>
               </div>
-              
-              {/* Timeline dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 mt-6" />
             </motion.div>
           ))}
         </div>
